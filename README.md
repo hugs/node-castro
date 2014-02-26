@@ -4,6 +4,15 @@ Castro
 A screen recording library for Node
 
 
+## Why is Castro so awesome?
+
+- Uses the AV Foundation framework to record the highest-quality video you possibly could record. 
+
+- Records in the popular QuickTime mp4 file format
+
+- Open source. (MIT License)
+
+
 ## Install
 
     npm install castro
