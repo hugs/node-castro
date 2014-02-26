@@ -10,12 +10,11 @@ A screen recording library for Node
 
 ## Example usage
 
-    castro = require('castro');
-    movie = new castro.Castro();
-    
-    movie.start();
-    // Do something awesome
-    movie.stop();
+    > castro = require('castro')
+    > movie = new castro.Castro()
+    > movie.start()
+    > // Do something awesome
+    > movie.stop()
 
 ## Where's my movie?
 
@@ -25,6 +24,6 @@ Movies are stored on the Desktop...
 
 ... but you can change the location before you start recording.
 
-    movie = new castro.Castro();
-    movie.setLocation('/Users/me/epic-movies/totes-epic.mp4')
-    movie.start()
+    > movie = new castro.Castro()
+    > movie.setLocation('/Users/me/epic-movies/totes-epic.mp4')
+    > movie.start()
