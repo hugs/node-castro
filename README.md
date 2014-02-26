@@ -3,7 +3,6 @@ Castro
 
 A screen recording library for Node
 
-
 ## Awesome features!
 
 - Uses the [AV Foundation framework](https://developer.apple.com/av-foundation/) to record the highest-quality video you possibly could record. 
@@ -61,6 +60,18 @@ Castro was created with:
 
 ## Example movies recorded with Castro
   
-- [Movie recorded with Castro](https://s3.amazonaws.com/castro-screencasts/Castro_h41jor.mp4) (mp4, 3.9 MB)
+[![Castro](https://s3.amazonaws.com/castro-screencasts/hi-castro-medium.png "hi, castro")](http://youtu.be/0qdPCl4TFt8)
+  
+- Movie recorded with Castro
 
-- [Using Castro to make the above movie](https://s3.amazonaws.com/castro-screencasts/Castro_8jv2t9.mp4) (mp4, 14.4 MB) Yes, you can have two Castro movies recording at the same time!
+  + [Original (mp4, 3.9 MB)](https://s3.amazonaws.com/castro-screencasts/Castro_h41jor.mp4) 
+  + [YouTube](http://youtu.be/0qdPCl4TFt8)
+
+- Using Castro to make the above movie
+
+  + [Original (mp4, 14.4 MB)](https://s3.amazonaws.com/castro-screencasts/Castro_8jv2t9.mp4)
+  + [YouTube](http://youtu.be/PAYoa9fglMk) 
+  
+  (Yes, you can have two Castro movies recording at the same time!)
+
+
