@@ -19,8 +19,12 @@ A screen recording library for Node
 ## Where's my movie?
 
 Movies are stored on the Desktop...
-
-    ~/Desktop/Castro_<short_random_string>.mp4
+   
+    > movie.location
+    '/Users/hugs/Desktop/Castro_5wmi.mp4'
+    
+    In other words:
+    '<home>/Desktop/Castro_<short_random_string>.mp4'
 
 ... but you can change the location before you start recording.
 
