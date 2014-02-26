@@ -4,11 +4,15 @@ Castro
 A screen recording library for Node
 
 
-## Why is Castro so awesome?
+## Awesome features!
 
-- Uses the AV Foundation framework to record the highest-quality video you possibly could record. 
+- Uses the [AV Foundation framework](https://developer.apple.com/av-foundation/) to record the highest-quality video you possibly could record. 
 
-- Records in the popular QuickTime mp4 file format
+- Records in the popular MPEG-4 file format
+
+- Simple API. Start and stop -- that's all you need to know!
+
+- Testing friendly. Combine with app automation tools like [Appium](http://appium.io/) or [Selenium](http://docs.seleniumhq.org/) to record movies of your tests. Screen recordings can be useful for debugging test failures.  
 
 - Open source. (MIT License)
 
