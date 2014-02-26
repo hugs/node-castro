@@ -8,7 +8,7 @@ A screen recording library for Node
 
 - Uses the [AV Foundation framework](https://developer.apple.com/av-foundation/) to record the highest-quality video you possibly could record. 
 
-- Records in the popular MPEG-4 file format
+- Records in the popular MPEG-4 file format.
 
 - Simple API. Start and stop -- that's all you need to know!
 
