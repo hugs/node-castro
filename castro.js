@@ -67,10 +67,10 @@ Castro.prototype = {
                                      'recordingDelegate', this.movieFileOutput);
                 this._started = true;
             } else {
-                throw new Error("Recording has completed. To make a new recording, create a new Castro object.")
+                throw new Error("Recording has completed. To make a new recording, create a new Castro object.");
             }
         } else {
-            throw new Error("A recording is already in progress.")
+            throw new Error("A recording is already in progress.");
         }
     },
 
@@ -82,24 +82,24 @@ Castro.prototype = {
                 this.pool('drain');
                 this._started = false;
                 this._used = true;
-                return this.location
+                return this.location;
             } else {
                 throw new Error("Try starting it first!");
             }
         } else {
-            throw new Error("Recording has completed. To make a new recording, create a new Castro object.")
+            throw new Error("Recording has completed. To make a new recording, create a new Castro object.");
         }
     },
 
     test: function() {
         console.log("Castro will record the main display for 10 seconds...");
 
-        console.log("Now starting...")
+        console.log("Now starting...");
         this.start();
 
 
         setTimeout(function(_this){
-            console.log("Now stopping...")
+            console.log("Now stopping...");
             _this.stop();
 
             console.log("File location:");
