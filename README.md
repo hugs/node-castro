@@ -1,7 +1,7 @@
 Castro
 ===========
 
-A screen recording library for Node
+Screen recording library for Node
 
 ## Awesome features!
 
