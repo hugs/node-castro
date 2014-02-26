@@ -32,6 +32,20 @@ Movies are stored on the Desktop...
     > movie.setLocation('/Users/me/epic-movies/totes-epic.mp4')
     > movie.start()
 
+## Requirements
+
+Castro was created with:
+
+    $ node -v
+    v0.10.25
+    
+    $ sw_vers
+    ProductName:    Mac OS X
+    ProductVersion: 10.9.2
+    BuildVersion:   13C64
+
+*Only works on OS X for now.*
+
 ## Example movies recorded with Castro
   
 - [Movie recorded with Castro](https://s3.amazonaws.com/castro-screencasts/Castro_h41jor.mp4) (mp4, 3.9 MB)
