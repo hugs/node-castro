@@ -6,7 +6,7 @@
 // Custom recording rect
 // Handle pause/restart
 
-var $ = require('NodObjC');
+var $ = require('nodobjc');
 $.framework('AVFoundation');
 $.framework('Foundation');
 
