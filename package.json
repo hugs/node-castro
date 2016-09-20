@@ -11,13 +11,13 @@
   },
   "main": "./castro.js",
   "engines": {
-      "node": ">= 0.6.0 && < 0.11.0"
+      "node": "*"
   },
   "bugs": {
     "url" : "https://github.com/hugs/node-castro/issues"
   },
   "license": "MIT", 
   "dependencies": {
-    "NodObjC": ">=0.0.15" 
+    "NodObjC": "*" 
   }
 }
