@@ -1,6 +1,6 @@
 {
   "name": "castro",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Automated screen recording",
   "author": "Jason Huggins <jrhuggins@gmail.com>",
   "keywords": ["video", "recording", "screencast", "osx"],
