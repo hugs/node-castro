@@ -46,15 +46,15 @@ Movies are stored on the Desktop...
 
 ## Requirements
 
-Castro was created with:
+Castro was tested with:
 
     $ node -v
-    v0.10.25
-    
+    v4.5.0
+
     $ sw_vers
-    ProductName:    Mac OS X
-    ProductVersion: 10.9.2
-    BuildVersion:   13C64
+    ProductName:	Mac OS X
+    ProductVersion:	10.11.6
+    BuildVersion:	15G1004
 
 *Only works on OS X for now.*
 
