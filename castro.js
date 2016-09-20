@@ -1,5 +1,5 @@
 // Castro: Screen*cast ro*bot
-// Copyright (c) 2014 Jason Huggins <jrhuggins@gmail.com>
+// Copyright (c) 2014-2016 Jason Huggins <jrhuggins@gmail.com>
 // License: MIT
 
 // TODO:
