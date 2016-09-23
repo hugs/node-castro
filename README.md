@@ -11,7 +11,7 @@ Screen recording library for Node
 
 - Simple API. Start and stop -- that's all you need to know!
 
-- Testing friendly. Combine with app automation tools like [Appium](http://appium.io/) or [Selenium](http://docs.seleniumhq.org/) to record movies of your tests. Screen recordings can be useful for debugging test failures.  
+- Automation friendly. Combine with test automation tools like [Appium](http://appium.io/) or [Selenium](http://docs.seleniumhq.org/) to record movies of your tests. Screen recordings can be useful for debugging test failures.  
 
 - Open source. (MIT License)
 
