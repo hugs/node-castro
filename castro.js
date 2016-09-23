@@ -5,6 +5,7 @@
 // TODO:
 // Custom recording rect
 // Handle pause/restart
+// Capture frame/screenshots: (https://developer.apple.com/library/ios/qa/qa1702/_index.html)
 
 var $ = require('nodobjc');
 $.framework('AVFoundation');
