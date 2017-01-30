@@ -15,7 +15,7 @@ function checkRect(rect) {
     return typeof rect === 'object' && 'x' in rect && 'y' in rect && 'w' in rect && 'h' in rect;
 }
 
-var Castro = function(rect, captureMouseClicks){
+var Castro = function(rect, captureMouseClicks, scaleFactor){
     this._started = false;
     this._used = false;
     this.pool = $.NSAutoreleasePool('alloc')('init');
@@ -34,6 +34,9 @@ var Castro = function(rect, captureMouseClicks){
     }
     if (captureMouseClicks) {
         this.input('setCapturesMouseClicks', true);
+    }
+    if (scaleFactor) {
+        this.input('setScaleFactor', scaleFactor);
     }
 
     if (this.session('canAddInput', this.input)) {
