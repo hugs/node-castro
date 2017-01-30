@@ -11,7 +11,11 @@ var $ = require('nodobjc');
 $.framework('AVFoundation');
 $.framework('Foundation');
 
-var Castro = function(){
+function checkRect(rect) {
+    return typeof rect === 'object' && 'x' in rect && 'y' in rect && 'w' in rect && 'h' in rect;
+}
+
+var Castro = function(rect, captureMouseClicks){
     this._started = false;
     this._used = false;
     this.pool = $.NSAutoreleasePool('alloc')('init');
@@ -20,7 +24,18 @@ var Castro = function(){
 
     // Set the main display as capture input
     this.displayId = $.CGMainDisplayID();
+    const cropRect = checkRect(rect)
+            ? $.CGRectMake(rect.x, rect.y, rect.w, rect.h)
+            : null;
     this.input = $.AVCaptureScreenInput('alloc')('initWithDisplayID', this.displayId);
+
+    if (cropRect) {
+        this.input('setCropRect', cropRect);
+    }
+    if (captureMouseClicks) {
+        this.input('setCapturesMouseClicks', true);
+    }
+
     if (this.session('canAddInput', this.input)) {
         this.session('addInput', this.input);
     }
