@@ -7,106 +7,77 @@
 // Handle pause/restart
 // Capture frame/screenshots: (https://developer.apple.com/library/ios/qa/qa1702/_index.html)
 
-var $ = require('nodobjc');
+const EventEmmiter = require('events');
+const $ = require('nodobjc');
 $.framework('AVFoundation');
 $.framework('Foundation');
 
-var Castro = function(){
-    this._started = false;
-    this._used = false;
-    this.pool = $.NSAutoreleasePool('alloc')('init');
-
-    this.session = $.AVCaptureSession('alloc')('init');
-
-    // Set the main display as capture input
-    this.displayId = $.CGMainDisplayID();
-    this.input = $.AVCaptureScreenInput('alloc')('initWithDisplayID', this.displayId);
-    if (this.session('canAddInput', this.input)) {
-        this.session('addInput', this.input);
-    }
-
-    // Set a movie file as output
-    this.movieFileOutput = $.AVCaptureMovieFileOutput('alloc')('init');
-    if (this.session('canAddOutput', this.movieFileOutput)) {
-        this.session('addOutput', this.movieFileOutput);
-    }
-
-    this.session('startRunning');
-    this.setLocation();
+function checkRect(rect) {
+    return typeof rect === 'object' && 'x' in rect && 'y' in rect && 'w' in rect && 'h' in rect;
 }
 
-Castro.prototype = {
+function getNSURL(path) {
+    const NSlocation = $.NSString('stringWithUTF8String', path);
+    return $.NSURL('fileURLWithPath', NSlocation);
+}
 
-    // Set recording file location
-    setLocation: function(path) {
-        // TODO: Does file exist at the file location path? If so, do something about it...
-        //var defaultManager = $.NSFileManager('alloc')('init')
-        //if (defaultManager('fileExistsAtPath',NSlocation)) {
-        //    console.log("File already exists!")
-        //}
+class Castro extends EventEmmiter {
+    constructor() {
+        super();
+        this._started = false;
 
-        if (!path){
-            // Default Destination: e.g. "/Users/hugs/Desktop/Castro_uul3di.mov"
-            var homeDir =  $.NSHomeDirectory();
-            var desktopDir = homeDir.toString() + '/Desktop/';
-            var randomString = (Math.random() + 1).toString(36).substring(12);
-            var filename = 'Castro_' + randomString + '.mp4';
-            this.location = desktopDir + filename;
-        } else {
-            // TODO: Make sure path is legit.
-            this.location = path;
-        }
-        this.NSlocation = $.NSString('stringWithUTF8String', this.location);
-        this.NSlocationURL = $.NSURL('fileURLWithPath', this.NSlocation);
-    },
+        this.session = $.AVCaptureSession('alloc')('init');
 
-    // Start recording
-    start: function() {
-        if (!this._started) {
-            if (!this._used) {
-                this.movieFileOutput('startRecordingToOutputFileURL', this.NSlocationURL,
-                                     'recordingDelegate', this.movieFileOutput);
-                this._started = true;
-            } else {
-                throw new Error("Recording has completed. To make a new recording, create a new Castro object.");
-            }
-        } else {
-            throw new Error("A recording is already in progress.");
-        }
-    },
+        // Set the main display as capture input
+        this.displayId = $.CGMainDisplayID();
 
-    // Stop recording
-    stop: function() {
-        if (!this._used) {
-            if (this._started) {
-                this.movieFileOutput('stopRecording');
-                this.pool('drain');
-                this._started = false;
-                this._used = true;
-                return this.location;
-            } else {
-                throw new Error("Try starting it first!");
-            }
-        } else {
-            throw new Error("Recording has completed. To make a new recording, create a new Castro object.");
-        }
-    },
+        this.input = $.AVCaptureScreenInput('alloc')('initWithDisplayID', this.displayId);
+        this.output = $.AVCaptureMovieFileOutput('alloc')('init');
 
-    test: function() {
-        console.log("Castro will record the main display for 10 seconds...");
+        if (this.session('canAddInput', this.input)) this.session('addInput', this.input);
+        if (this.session('canAddOutput', this.output)) this.session('addOutput', this.output);
 
-        console.log("Now starting...");
-        this.start();
+        const Delegate = $.NSObject.extend('AVCaptureFileOutputRecordingDelegate');
+        Delegate.addMethod('captureOutput:didStartRecordingToOutputFileAtURL:fromConnections:', 'v@:@@@', () => {
+            this.emit('didStartRecording');
+        });
+        Delegate.addMethod('captureOutput:willFinishRecordingToOutputFileAtURL:fromConnections:error:', 'v@:@@@@', () => {
+            this.emit('willFinishRecording');
+        });
+        Delegate.register();
+        this.delegate = Delegate('alloc')('init');
 
+        this.session('startRunning');
+    }
 
-        setTimeout(function(_this){
-            console.log("Now stopping...");
-            _this.stop();
+    start(videoLocation, rect, captureMouseClicks, scaleFactor) {
+        const cropRect = checkRect(rect) ? $.CGRectMake(rect.x, rect.y, rect.w, rect.h) : null;
 
-            console.log("File location:");
-            console.log(_this.location);
-        }, 10*1000, this);
+        if (captureMouseClicks) this.input('setCapturesMouseClicks', true);
+        if (cropRect)           this.input('setCropRect', cropRect);
+        if (scaleFactor)        this.input('setScaleFactor', scaleFactor);
+
+        this.pool = $.NSAutoreleasePool('alloc')('init');
+
+        if (this._started) throw new Error('A recording is already in progress.');
+
+        this.output(
+            'startRecordingToOutputFileURL', getNSURL(videoLocation),
+            'recordingDelegate', this.delegate
+        );
+        this._started = true;
+    }
+
+    stop() {
+        if (!this._started) throw new Error('Video did not start recording.');
+
+        this.output('stopRecording');
+        this.pool('drain');
+        this._started = false;
+
+        return this.location;
     }
 }
 
+module.exports = Castro;
 module.exports.Castro = Castro;
