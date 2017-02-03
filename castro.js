@@ -22,7 +22,7 @@ function getNSURL(path) {
 }
 
 class Castro extends EventEmmiter {
-    constructor(rect, captureMouseClicks, scaleFactor) {
+    constructor() {
         super();
         this._started = false;
 
@@ -31,14 +31,8 @@ class Castro extends EventEmmiter {
         // Set the main display as capture input
         this.displayId = $.CGMainDisplayID();
 
-        const cropRect = checkRect(rect) ? $.CGRectMake(rect.x, rect.y, rect.w, rect.h) : null;
-
         this.input = $.AVCaptureScreenInput('alloc')('initWithDisplayID', this.displayId);
         this.output = $.AVCaptureMovieFileOutput('alloc')('init');
-
-        if (captureMouseClicks) this.input('setCapturesMouseClicks', true);
-        if (cropRect)           this.input('setCropRect', cropRect);
-        if (scaleFactor)        this.input('setScaleFactor', scaleFactor);
 
         if (this.session('canAddInput', this.input)) this.session('addInput', this.input);
         if (this.session('canAddOutput', this.output)) this.session('addOutput', this.output);
@@ -56,7 +50,13 @@ class Castro extends EventEmmiter {
         this.session('startRunning');
     }
 
-    start(videoLocation) {
+    start(videoLocation, rect, captureMouseClicks, scaleFactor) {
+        const cropRect = checkRect(rect) ? $.CGRectMake(rect.x, rect.y, rect.w, rect.h) : null;
+
+        if (captureMouseClicks) this.input('setCapturesMouseClicks', true);
+        if (cropRect)           this.input('setCropRect', cropRect);
+        if (scaleFactor)        this.input('setScaleFactor', scaleFactor);
+
         this.pool = $.NSAutoreleasePool('alloc')('init');
 
         if (this._started) throw new Error('A recording is already in progress.');
